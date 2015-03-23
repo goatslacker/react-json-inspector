@@ -39,14 +39,17 @@
 
 .json-inspector__value_string {
   color: #87af5f;
+  cursor: text;
 }
 
 .json-inspector__value_boolean {
   color: #f55e5f;
+  cursor: text;
 }
 
 .json-inspector__value_number {
   color: #57b3df;
+  cursor: text;
 }
 
 .json-inspector__hl {
