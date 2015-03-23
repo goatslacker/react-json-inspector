@@ -24,23 +24,16 @@ module.exports = React.createClass({
             }
         };
     },
-    getInitialState: function() {
-        return {
-            query: ''
-        };
-    },
     render: function() {
         var p = this.props;
-        var s = this.state;
-
-        var data = s.query ? s.filterer(s.query) : p.data;
+        var data = p.data;
 
         var rootNode = leaf({
             data: data,
             onClick: p.onClick,
             id: p.id,
             getOriginal: this.getOriginal,
-            query: s.query,
+            query: '',
             label: 'root',
             isRoot: true
         });
@@ -48,39 +41,7 @@ module.exports = React.createClass({
         var notFound = D.div({ className: 'json-inspector__not-found' }, 'Nothing found');
 
         return D.div({ className: 'json-inspector ' + p.className },
-            this.renderToolbar(),
             isEmpty(data) ? notFound : rootNode);
-    },
-    renderToolbar: function() {
-        var search = this.props.search;
-
-        if (search) {
-            return D.div({ className: 'json-inspector__toolbar' },
-                search({ onChange: this.search, data: this.props.data }));
-        }
-    },
-    search: function(query) {
-        if (query === '' || this.props.validateQuery(query)) {
-            this.setState({
-                query: query
-            });
-        }
-    },
-    componentDidMount: function() {
-        this.createFilterer(this.props.data);
-    },
-    componentWillReceiveProps: function(p) {
-        this.createFilterer(p.data);
-    },
-    shouldComponentUpdate: function (p, s) {
-        return s.query !== this.state.query ||
-            p.data !== this.props.data ||
-            p.onClick !== this.props.onClick;
-    },
-    createFilterer: function(data) {
-        this.setState({
-            filterer: filterer(data)
-        });
     },
     getOriginal: function(path) {
         return lens(this.props.data, path);
