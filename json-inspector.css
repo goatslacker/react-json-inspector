@@ -18,7 +18,6 @@
   cursor: pointer;
 }
 
-.json-inspector__radio,
 .json-inspector__flatpath {
   display: none;
 }
